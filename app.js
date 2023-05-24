@@ -52,30 +52,27 @@ app.put("/todos/:todoId/", async (request, response) => {
   const { todoId } = request.params;
   const { todo = "", priority = "", status = "" } = request.body;
   if (todo !== "") {
-        const query = `update todo set todo='${todo}' where id = ${todoId};`;
-        await database.run(query);
-        response.send("Todo Updated");
+    const query = `update todo set todo='${todo}' where id = ${todoId};`;
+    await database.run(query);
+    response.send("Todo Updated");
+  } else if (priority !== "") {
+    const query = `update todo set priority='${priority}' where id = ${todoId};`;
+    await database.run(query);
+    response.send("Priority Updated");
+  } else if (status !== "") {
+    const query = `update todo set status='${status}' where id = ${todoId};`;
+    await database.run(query);
+    response.send("Status Updated");
   }
-  else if (priority !== "" {
-        const query = `update todo set priority='${priority}' where id = ${todoId};`;
-        await database.run(query);
-        response.send("Priority Updated");
-  })
-  else if (status !== "" {
-        const query = `update todo set status='${status}' where id = ${todoId};`;
-        await database.run(query);
-        response.send("Status Updated");
-  })
 });
 
 //API 5
 
 app.delete("/todos/:todoId/", async (request, response) => {
   const { todoId } = request.params;
-    const query = `delete from todo where id = ${todoId};`;
-    await database.run(query);
-    response.send("Todo Deleted");
+  const query = `delete from todo where id = ${todoId};`;
+  await database.run(query);
+  response.send("Todo Deleted");
 });
 
 module.exports = app;
-
